@@ -152,7 +152,7 @@ template createTFD() =
   # Get users request
   c.req = request
   # Check for cookies (we need the cookie named sid)
-  if request.cookies.len > 0:
+  if cookies(request).len > 0:
     # Check if user is logged in
     checkLoggedIn(c)
   # Use the func()
