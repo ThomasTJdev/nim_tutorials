@@ -210,7 +210,11 @@ routes:
 
     let (loginB, loginS) = login(c, replace(toLowerAscii(@"email"), " ", ""), replace(@"password", " ", ""))
     if loginB:
-      jester.setCookie("sid", loginS, daysForward(7))
+      when defined(dev):
+        jester.setCookie("sid", loginS, daysForward(7))
+      else:
+        jester.setCookie("sid", loginS, daysForward(7), samesite = Lax, secure = true, httpOnly = true)
+
       redirect("/secret")
     else:
       redirect("/login?msg=" & encodeUrl(loginS))
